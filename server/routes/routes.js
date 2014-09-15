@@ -8,6 +8,7 @@ var morgan         = require('morgan'),
     debug          = require('../lib/debug'),
     security       = require('../lib/security'),
     users          = require('../controllers/users'),
+    categories     = require('../controllers/categories'),
     home           = require('../controllers/home');
 
 module.exports = function(app, express){
@@ -24,7 +25,12 @@ module.exports = function(app, express){
   app.get('/home', home.index);
   app.post('/register', users.register);
   app.post('/login', users.login);
+
+  app.use(security.bounce);
   app.delete('/logout', users.logout);
+  app.get('/categories', categories.all);
+  app.post('/categories', categories.create);
+
 
   console.log('Express: Routes Loaded');
 };

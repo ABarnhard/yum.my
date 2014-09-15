@@ -1,0 +1,15 @@
+h3 Bookmarks
+.row
+  .col-xs-3
+    form(role='form', novalidate, name='catForm')
+      .form-group
+        label Add A Category
+        input.form-control(type='text', name='name', ng-model='name', required)
+      button.btn.btn-primary(type='submit', ng-show='catForm.$valid', ng-click='addCategory()') Create Category
+  .col-xs-9
+
+.row
+  .col-xs-12
+    h5 Categories
+    ul
+      li(ng-repeat='c in categories') {{c.name}}
