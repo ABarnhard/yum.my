@@ -1,15 +1,36 @@
 h3 Bookmarks
 .row
   .col-xs-3
+    h5 Add a Category!!!!!!!
     form(role='form', novalidate, name='catForm')
       .form-group
-        label Add A Category
+        label Category
         input.form-control(type='text', name='name', ng-model='name', required)
       button.btn.btn-primary(type='submit', ng-show='catForm.$valid', ng-click='addCategory()') Create Category
-  .col-xs-9
+  .col-xs-2
+  .col-xs-3
+    h5 Add a bookmark!!!!!
+    form(role='form', novalidate, name='bookForm')
+      .form-group
+        label Name
+        input.form-control(type='text', name='bName', ng-model='bookmark.name', required, ng-minlength='3')
+      .form-group
+        label URL
+        input.form-control(type='text', name='bUrl', ng-model='bookmark.url', required, ng-pattern='/^http/')
+      .form-group
+        label Category
+        select.form-control(ng-model='bookmark.categoryId', name='categoryId', ng-options='c._id as c.name for c in categories | orderBy:\'name\'', required)
+          option(value='') Select Category
+      button.btn.btn-danger(type='submit', ng-show='bookForm.$valid', ng-click='createBookmark()') Add
+  .col-xs-4
 
 .row
-  .col-xs-12
+  .col-xs-6
     h5 Categories
+    button.btn.btn-primary(type='button', ng-click='setFilter()') Clear Search
     ul
-      li(ng-repeat='c in categories') {{c.name}}
+      li(ng-repeat='c in categories', ng-click='setFilter(c.name)') {{c.name}}
+  .col-xs-6
+    h5 Bookmarks
+    ul
+      li(ng-repeat='b in bookmarks | filter:filter:true'): a(href='{{b.url}}') {{b.name}}
